@@ -1,18 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface UserFormData {
-    id: string;
-    name: string;
-    address: string;
-    email: string;
-    phone: string;
-}
-
-interface DataState {
-    richTextContent: string;
-    counter: number;
-    userFormData: UserFormData;
-}
+import { DataState, UserFormData } from "../types/dataTypes";
 
 const initialState: DataState = {
     richTextContent: "",
