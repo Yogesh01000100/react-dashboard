@@ -1,21 +1,51 @@
-import { Box, Heading, Grid, GridItem } from "@chakra-ui/react";
-import AnimatedCounter from "../components/AnimatedCounter";
-import UserForm from "../components/UserForm";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
+import AnimatedCounter from "../components/Counter";
 import RichTextPage from "./RichTextPage";
+import UserDataBox from "../components/UserDataBox";
+import AdditionalInfoBox from "../components/InfoBox";
 
 const DashboardPage: React.FC = () => {
   return (
-    <Box p={4}>
-      <Heading mb={4}>Dashboard</Heading>
-      <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+    <Box p={4} maxW="1200px" mx="auto" mt="15px">
+      <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={6}>
         <GridItem>
-          <AnimatedCounter />
+          <Box
+            p={4}
+            border="1px solid black"
+            borderRadius="md"
+            boxShadow="md"
+            height="100%"
+          >
+            <AnimatedCounter />
+          </Box>
         </GridItem>
+
         <GridItem>
-          <UserForm />
-        </GridItem>
-        <GridItem colSpan={2}>
           <RichTextPage />
+        </GridItem>
+
+        <GridItem>
+          <Box
+            p={4}
+            border="1px solid black"
+            borderRadius="md"
+            boxShadow="md"
+            height="100%"
+          >
+            <UserDataBox />
+          </Box>
+        </GridItem>
+
+        <GridItem>
+          <Box
+            p={4}
+            border="1px solid black"
+            borderRadius="md"
+            boxShadow="md"
+            height="100%"
+          >
+            <AdditionalInfoBox />
+          </Box>
         </GridItem>
       </Grid>
     </Box>

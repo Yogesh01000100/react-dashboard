@@ -1,21 +1,31 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import HomePage from "./pages/HomePage";
-import UserFormPage from "./pages/UserFormPage";
-import RichTextPage from "./pages/RichTextPage";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./pages/LoginPage";
+import PrivateRoute from "./components/PrivateRoute";
 
 const App: React.FC = () => {
   return (
     <Router>
-      <Header />
-      <Routes>
-        <Route path="/counter" element={<HomePage />} />
-        <Route path="/form" element={<UserFormPage />} />
-        <Route path="/editor" element={<RichTextPage />} />
-        <Route path="/" element={<DashboardPage />} />
-      </Routes>
+      <Box bg="gray.50" minH="100vh">
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardPage />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </Box>
     </Router>
   );
 };

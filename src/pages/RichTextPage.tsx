@@ -1,30 +1,64 @@
 import { useState, useEffect } from "react";
-import { Box, Heading, Button } from "@chakra-ui/react";
-import RichTextEditor from "../components/RichTextEditor";
+import { Box, Button, Flex } from "@chakra-ui/react";
+import TextEditor from "../components/TextEditor";
+import { useDirtyForm } from "../hooks/useDirtyForm";
 
 const RichTextPage: React.FC = () => {
   const [content, setContent] = useState("");
+  const [savedContent, setSavedContent] = useState("");
+  const [isDirty, setIsDirty] = useState(false);
 
   useEffect(() => {
-    const savedContent = localStorage.getItem("richTextContent");
-    if (savedContent) {
-      setContent(savedContent);
+    const saved = localStorage.getItem("richTextContent");
+    if (saved) {
+      setContent(saved);
+      setSavedContent(saved);
     }
   }, []);
 
+  useEffect(() => {
+    if (content !== savedContent) {
+      setIsDirty(true);
+    } else {
+      setIsDirty(false);
+    }
+  }, [content, savedContent]);
+
+  useDirtyForm(isDirty);
+
   const handleSave = () => {
     localStorage.setItem("richTextContent", content);
+    setSavedContent(content);
     alert("Content saved!");
   };
 
   return (
-    <Box p={4}>
-      <Heading mb={4}>Rich Text Editor</Heading>
-      <RichTextEditor value={content} onChange={setContent} />
-      <Button mt={4} colorScheme="blue" onClick={handleSave}>
-        Save Content
-      </Button>
-    </Box>
+    <Flex
+      direction={{ base: "column", md: "row" }}
+      justify="center"
+      align="center"
+      flexWrap="wrap"
+      p={4}
+    >
+      <Box
+        p={4}
+        border="1px solid black"
+        borderRadius="8px"
+        boxShadow="lg"
+        bg="gray.50"
+      >
+        <TextEditor value={content} onChange={setContent} />
+        <Button
+          mt={4}
+          width="100%"
+          maxW={{ base: "30%", md: "100px" }}
+          colorScheme="blue"
+          onClick={handleSave}
+        >
+          Save
+        </Button>
+      </Box>
+    </Flex>
   );
 };
 
