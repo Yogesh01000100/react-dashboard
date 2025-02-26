@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -20,9 +20,15 @@ const LoginPage: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 500);
+    if (user) {
+      setLoading(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 400);
     return () => clearTimeout(timer);
-  }, [loading]);
+  }, []);
 
   const handleGoogleSignIn = () => {
     const dummyUser = { name: "yogesh", email: "yogesh@example.com" };
@@ -59,16 +65,15 @@ const LoginPage: React.FC = () => {
         <Text mb={6} color="gray.600">
           We're thrilled to see you again. Sign in to continue!
         </Text>
-
         <Button
           variant="solid"
-          color={"gray.700"}
+          color="gray.700"
           onClick={handleGoogleSignIn}
           size="md"
           w="70%"
           leftIcon={<Image src={logo} alt="Google" boxSize="20px" />}
           fontWeight="normal"
-          border={"1px"}
+          border="1px"
         >
           Sign in with Google
         </Button>

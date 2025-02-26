@@ -24,6 +24,7 @@ const App: React.FC = () => {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </Box>
     </Router>
